@@ -52,9 +52,39 @@ textarea{width:100%;border-radius:14px;border:3px solid #7c4dff;padding:10px;fon
 ul{padding-left:20px}li{margin:5px 0}
 .sp,.cf{position:fixed;pointer-events:none;z-index:99}.sp{animation:fade .8s forwards}.cf{animation:fall 1.6s forwards}
 @keyframes fade{to{opacity:0;transform:translateY(-30px) scale(.3) rotate(90deg)}}@keyframes fall{to{transform:translate(var(--x),105vh) rotate(720deg);opacity:.7}}
-</style></head><body>
+#bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+#bg span{position:absolute;animation:drift linear infinite;opacity:.85}
+@keyframes drift{from{transform:translateX(-15vw) translateY(0)}50%{transform:translateX(55vw) translateY(-25px)}to{transform:translateX(115vw) translateY(0)}}
+#bg .fl{animation:rise linear infinite}@keyframes rise{from{transform:translateY(105vh) rotate(0)}to{transform:translateY(-15vh) rotate(360deg)}}
+header,nav,main{position:relative;z-index:2}header{position:sticky}
+#pet{position:fixed;right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:50;width:130px;text-align:center;cursor:pointer}
+#pet svg{width:100px;animation:bob 2.2s infinite ease-in-out;overflow:visible}
+#pb{background:#fff;color:#2b1a4a;border:3px solid #2b1a4a;border-radius:16px;padding:5px 9px;font:700 13px 'Baloo 2';margin-bottom:4px;position:relative;animation:pop .4s}
+.eye{transform-box:fill-box;transform-origin:center;animation:blink 3.5s infinite}@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+.arm{transform-box:fill-box;transform-origin:20% 90%;animation:wave 1s infinite alternate ease-in-out}@keyframes wave{to{transform:rotate(-35deg)}}
+#pet.happy svg{animation:hop .6s 3}@keyframes hop{50%{transform:translateY(-40px) scale(1.1) rotate(-8deg)}}
+#pet.sad svg{animation:shake .5s 2}#pet.happy .mo{d:path("M38 58 Q50 76 62 58 Z");fill:#c0392b}
+.card h1,.card h2{animation:wig 3s infinite ease-in-out}@keyframes wig{50%{transform:rotate(-1.5deg) scale(1.02)}}
+.mem:hover,.nc:hover{animation:wig .5s infinite}.mem{transition:.2s}
+.btn.y{animation:pulse 1.6s infinite}@keyframes pulse{50%{transform:scale(1.07)}}
+.mascot{filter:drop-shadow(0 6px 0 #0003)}
+</style></head><body><div id="bg"></div>
 <header><span style="font-size:26px">🕉️</span><b>MPI Darsana</b><span class="xp" id="xp">⭐ 0 XP · Lv 1</span><div id="bar"><i></i></div></header>
 <nav id="nav"></nav><main id="m"></main>
+<div id="pet" onclick="mood('happy','Halo! Aku Dewa, temanmu belajar! 🪷')"><div id="pb">Halo! Aku Dewa 🪷</div>
+<svg viewBox="0 0 100 130"><g class="arm"><rect x="70" y="72" width="12" height="30" rx="6" fill="#f5c18b" transform="rotate(-25 76 76)"/><circle cx="84" cy="70" r="7" fill="#f5c18b"/></g>
+<rect x="30" y="80" width="40" height="40" rx="14" fill="#fff" stroke="#2b1a4a" stroke-width="3"/><rect x="30" y="104" width="40" height="16" rx="6" fill="#ff3d81" stroke="#2b1a4a" stroke-width="3"/>
+<rect x="14" y="84" width="12" height="28" rx="6" fill="#f5c18b"/>
+<circle cx="50" cy="46" r="30" fill="#f5c18b" stroke="#2b1a4a" stroke-width="3"/>
+<path d="M18 38 Q50 -2 82 38 L82 28 Q50 -14 18 28Z" fill="#ffd93d" stroke="#2b1a4a" stroke-width="3"/><path d="M42 12 L50 -4 L58 12Z" fill="#ff3d81" stroke="#2b1a4a" stroke-width="2"/>
+<g class="eye"><ellipse cx="38" cy="46" rx="5" ry="7" fill="#2b1a4a"/><circle cx="40" cy="43" r="2" fill="#fff"/></g><g class="eye"><ellipse cx="62" cy="46" rx="5" ry="7" fill="#2b1a4a"/><circle cx="64" cy="43" r="2" fill="#fff"/></g>
+<circle cx="30" cy="56" r="5" fill="#ff8fab" opacity=".7"/><circle cx="70" cy="56" r="5" fill="#ff8fab" opacity=".7"/>
+<path class="mo" d="M40 58 Q50 68 60 58" fill="none" stroke="#2b1a4a" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="34" r="3" fill="#e74c3c"/></svg></div>
+<script>
+(function(){const e=['☁️','☁️','🪷','🦋','🕊️','☁️'],b=document.getElementById('bg');for(let i=0;i<9;i++){const s=document.createElement('span');s.textContent=e[i%6];s.style.cssText=`top:${8+Math.random()*80}vh;font-size:${26+Math.random()*30}px;animation-duration:${22+Math.random()*25}s;animation-delay:-${Math.random()*30}s`;b.appendChild(s)}
+for(let i=0;i<8;i++){const s=document.createElement('span');s.className='fl';s.textContent=['⭐','✨','🌸','🪷'][i%4];s.style.cssText=`left:${Math.random()*95}vw;font-size:${16+Math.random()*16}px;animation-duration:${14+Math.random()*14}s;animation-delay:-${Math.random()*20}s`;b.appendChild(s)}})();
+let pt;function mood(k,t){const p=document.getElementById('pet');p.className=k;document.getElementById('pb').textContent=t;clearTimeout(pt);pt=setTimeout(()=>p.className='',2200)}
+</script>
 <script>
 const $=s=>document.querySelector(s);
 const S=[["Nyaya","🔍","#ff3d81","Rsi Gotama","Logika & Pramana","Penalaran logis, epistemologi, cara memperoleh pengetahuan benar (Pramana) untuk membedakan benar dan salah."],
@@ -97,10 +127,10 @@ const P=[
 ()=>`<div class="card"><h2>💭 Refleksi Pembelajaran</h2>${["Bagian materi Darsana mana yang paling menarik dan mudah saya pahami hari ini? Mengapa?","Tantangan abad 21 apa yang paling sering saya rasakan, dan aliran Sad Darsana mana yang ingin saya terapkan?","Perubahan sikap apa yang akan saya mulai terapkan setelah mempelajari modul ini?"].map((q,i)=>`<p><b>${i+1}. ${q}</b></p><textarea rows="3" placeholder="Tulis jawabanmu..."></textarea>`).join('')}<button class="btn g" onclick="boom();addXP(10)">💾 Selesai Refleksi</button></div>`,
 ()=>`<div class="card"><h2>📖 Daftar Sumber / Pustaka</h2><ul><li>Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi RI. Buku Panduan Guru & Buku Siswa Pendidikan Agama Hindu dan Budi Pekerti.</li><li>Punia, I Nyoman. <i>Filsafat Agama Hindu (Darsana)</i>. Surabaya: Paramita.</li><li>Titib, Made. <i>Teologi Hindu (Brahma Tattwa)</i>. Denpasar: Kayu Mas.</li></ul><p style="text-align:center;font-size:22px">🙏 Om Santih Santih Santih Om 🪷</p></div>`];
 function nav(){$('#nav').innerHTML=T.map((t,i)=>`<button title="${t}" class="${i==cur?'on':seen.has(i)?'done':''}" onclick="go(${i})">${i+1}</button>`).join('');$('#bar i').style.width=(seen.size/14*100)+'%'}
-function go(i){cur=i;if(!seen.has(i)){seen.add(i);addXP(5)}$('#m').innerHTML=P[i]()+`<div class="pager"><button class="btn" onclick="go(${Math.max(0,i-1)})" ${i?'':'disabled style="opacity:.3"'}>⬅️ Kembali</button><b style="color:#fff;align-self:center">${i+1}. ${T[i]}</b><button class="btn g" onclick="go(${Math.min(13,i+1)})" ${i<13?'':'disabled style="opacity:.3"'}>Lanjut ➡️</button></div>`;nav();scrollTo(0,0);if(i==8)g1();if(i==9)quiz()}
+function go(i){cur=i;if(!seen.has(i)){seen.add(i);addXP(5)}$('#m').innerHTML=P[i]()+`<div class="pager"><button class="btn" onclick="go(${Math.max(0,i-1)})" ${i?'':'disabled style="opacity:.3"'}>⬅️ Kembali</button><b style="color:#fff;align-self:center">${i+1}. ${T[i]}</b><button class="btn g" onclick="go(${Math.min(13,i+1)})" ${i<13?'':'disabled style="opacity:.3"'}>Lanjut ➡️</button></div>`;nav();scrollTo(0,0);mood('',['Halo! Aku Dewa 🪷','Ini timku! 🌟','Tujuan kita jelas ya 🎯','Ikuti petunjuknya ya 🧭','Yuk pahami Darsana 📚','Balik kartunya! 🃏','Lihat bagannya! 📊','Relevan banget! 🌏','Saatnya main game! 🎮','Semangat kuisnya! 💪','Ini hasilmu! 🏅','Kesimpulan 🌟','Renungkan ya 💭','Om Santih 🙏'][i]);if(i==8)g1();if(i==9)quiz()}
 function g1(){matched=0;sel={};const r=S.map((s,i)=>[s,i]).sort(()=>Math.random()-.5),a=S.map((s,i)=>[s,i]).sort(()=>Math.random()-.5);$('#g1').innerHTML=`<div>${r.map(x=>`<button class="pill" id="r${x[1]}" onclick="pick('r',${x[1]})">👤 ${x[0][3]}</button>`).join('')}</div><div>${a.map(x=>`<button class="pill" id="a${x[1]}" onclick="pick('a',${x[1]})">${x[0][1]} ${x[0][0]}</button>`).join('')}</div><div class="mid" id="gm">Pilih satu Rsi dan satu aliran!</div>`}
-function pick(k,i){sel[k]=i;document.querySelectorAll('.pill').forEach(p=>{if(p.id[0]==k)p.classList.remove('sel')});$('#'+k+i).classList.add('sel');if(sel.r!=null&&sel.a!=null){if(sel.r==sel.a){['r','a'].forEach(z=>{$('#'+z+sel[z]).className='pill gone'});matched++;addXP(10);boom();$('#gm').textContent=`✅ Benar! ${S[sel.r][3]} = ${S[sel.r][0]} (${matched}/6)`;if(matched==6)$('#gm').textContent='🎉 Hebat! Semua pasangan benar!'}else{document.querySelectorAll('.sel').forEach(p=>p.classList.add('no'));$('#gm').textContent='❌ Belum cocok, coba lagi!';setTimeout(()=>document.querySelectorAll('.pill').forEach(p=>p.classList.remove('sel','no')),500)}sel={}}}
+function pick(k,i){sel[k]=i;document.querySelectorAll('.pill').forEach(p=>{if(p.id[0]==k)p.classList.remove('sel')});$('#'+k+i).classList.add('sel');if(sel.r!=null&&sel.a!=null){if(sel.r==sel.a){['r','a'].forEach(z=>{$('#'+z+sel[z]).className='pill gone'});matched++;mood('happy','Cocok! Hebat! 🌟');addXP(10);boom();$('#gm').textContent=`✅ Benar! ${S[sel.r][3]} = ${S[sel.r][0]} (${matched}/6)`;if(matched==6)$('#gm').textContent='🎉 Hebat! Semua pasangan benar!'}else{document.querySelectorAll('.sel').forEach(p=>p.classList.add('no'));$('#gm').textContent='❌ Belum cocok, coba lagi!';mood('sad','Hmm, belum cocok 🤔');setTimeout(()=>document.querySelectorAll('.pill').forEach(p=>p.classList.remove('sel','no')),500)}sel={}}}
 function quiz(){const c=$('#qz');if(qi>=10){go(10);return}const q=Q[qi];ans=false;c.innerHTML=`<h2>❓ Kuis ${qi+1}/10 <span class="tag">Skor ${score*10}</span></h2><p><b>${q[0]}</b></p>${q[1].map((o,i)=>`<button class="opt" onclick="choose(${i})">${'ABCDE'[i]}. ${o}</button>`).join('')}<div id="fb"></div>`}
-function choose(i){if(ans)return;ans=true;const q=Q[qi],o=document.querySelectorAll('.opt');o[q[2]].classList.add('ok');if(i==q[2]){score++;addXP(10);boom();$('#fb').innerHTML=say('🎉 '+q[3],'🧘')}else{o[i].classList.add('no');$('#fb').innerHTML=say(`Belum tepat. Jawaban benar: ${'ABCDE'[q[2]]}. ${q[3]}`,'🤔')}$('#fb').innerHTML+=`<button class="btn y" onclick="qi++;quiz()">${qi<9?'Soal Berikutnya ➡️':'Lihat Skor 🏅'}</button>`}
+function choose(i){if(ans)return;ans=true;const q=Q[qi],o=document.querySelectorAll('.opt');o[q[2]].classList.add('ok');if(i==q[2]){mood('happy','Yeay, benar! 🎉');score++;addXP(10);boom();$('#fb').innerHTML=say('🎉 '+q[3],'🧘')}else{o[i].classList.add('no');mood('sad','Ups, coba lagi ya 😅');$('#fb').innerHTML=say(`Belum tepat. Jawaban benar: ${'ABCDE'[q[2]]}. ${q[3]}`,'🤔')}$('#fb').innerHTML+=`<button class="btn y" onclick="qi++;quiz()">${qi<9?'Soal Berikutnya ➡️':'Lihat Skor 🏅'}</button>`}
 go(0);
 </script></body></html>
